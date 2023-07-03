@@ -1,3 +1,5 @@
+Patreon: https://www.patreon.com/sd_hassan
+
 # Image Grid Creation and Separation
 
 This is a Python script that allows you to either create a grid of images or separate a grid of images.
