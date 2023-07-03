@@ -1,12 +1,23 @@
 import os
 import glob
 from PIL import Image
+import re
+
+def get_image_number(image_path):
+    match = re.search(r'(\d+)\.png$', image_path)
+    return int(match.group(1)) if match else 0
+
+
+
 
 def create_grid(input_folder, dimensions):
     width, height = map(int, dimensions.split('x'))
     os.makedirs('grids', exist_ok=True)
 
-    images = sorted(glob.glob(f'{input_folder}/*'))
+    images = sorted(glob.glob(f'{input_folder}/*'), key=get_image_number)
+
+    
+
     for i in range(0, len(images), 4):
         grid_image = Image.new('RGB', (width * 2, height * 2))
 
@@ -24,7 +35,7 @@ def separate_grid(input_folder, dimensions, aspect):
 
     split_width, split_height = (width // 2, height // 2) if aspect == 'square' else map(int, aspect.split('x'))
 
-    grid_images = sorted(glob.glob(f'{input_folder}/*'))
+    grid_images = sorted(glob.glob(f'{input_folder}/*'), key=get_image_number)
     for i, grid_image_path in enumerate(grid_images):
         grid_image = Image.open(grid_image_path)
 
